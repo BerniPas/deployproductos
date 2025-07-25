@@ -72,7 +72,7 @@ const Login = () => {
     }
 
     return (
-        <main className="CMain">
+        <main c>
             <div className="Tittle">
                 <h1 className="TittleAnimation">LOGIN</h1>
             </div>
