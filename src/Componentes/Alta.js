@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
-//import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import "../css/SContacto.css"
 
 // validación front del formulario
@@ -18,10 +18,11 @@ const validationSchema = Yup.object().shape({
         .required('Required'),
 });
 
-const Alta = () => (
+const Alta = () => { 
 
-    
-    
+const navigate = useNavigate();
+
+return (
     <div className="CMain">
         <div className="Tittle">
             <h1 className="TittleAnimation">Alta de Users</h1>
@@ -44,18 +45,24 @@ const Alta = () => (
                     const response = await axios.post(`${process.env.REACT_APP_API_REGISTER_URL}`, values);
                     Swal.fire({
                         icon: "success",
-                        title: "Login exitoso",
+                        title: "Registro exitoso",
                         text: `${response.data.message}`,
                     }).then(() => {
-                        //navigate("/home");
+                        navigate("/");
                     });
-                    resetForm(); 
+                    resetForm();
                     //navigate                                   
 
                 } catch (error) {
                     console.log(`Error al enviar el formulario: ${error}`); // Manejo de errores
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "No se registró correctamente!"
+                    }).then(() => {
+                        navigate("/alta");
+                    })
                     resetForm();
-
                 }
             }}
         >
@@ -78,6 +85,6 @@ const Alta = () => (
             )}
         </Formik>
     </div>
-);
+)};
 
 export default Alta
